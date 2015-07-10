@@ -10,5 +10,17 @@ class CustomUser(AbstractUser):
                                  choices = type_choices,
                                  default = 'MEM')
 
+class Confederation(models.Model):
+    user = models.OneToOneField(CustomUser)
+
+class Federation(models.Model):
+    user = models.OneToOneField(CustomUser)
+    confederation = models.ForeignKey(Confederation)
+
+class Academy(models.Model):
+    user = models.OneToOneField(CustomUser)
+    federation = models.ForeignKey(Federation)
+
 class Member(models.Model):
     user = models.OneToOneField(CustomUser)
+    academy = models.ForeignKey(Academy)
