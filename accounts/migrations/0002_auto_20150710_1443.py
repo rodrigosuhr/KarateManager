@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='member',
             name='academy',
-            field=models.ForeignKey(default=datetime.datetime(2015, 7, 10, 14, 43, 36, 189733, tzinfo=utc), to='accounts.Academy'),
+            field=models.ForeignKey(to='accounts.Academy'),
             preserve_default=False,
         ),
     ]

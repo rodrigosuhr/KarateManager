@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
-    type_choices = (('MEM', 'MEMBER'),
+    type_choices = (('SYS', 'SYSADMIN'),
+                    ('MEM', 'MEMBER'),
                     ('ACA', 'ACADEMY'),
                     ('FED', 'FEDERATION'),
                     ('CON', 'CONFEDERATION'),)
@@ -22,5 +23,13 @@ class Academy(models.Model):
     federation = models.ForeignKey(Federation)
 
 class Member(models.Model):
+    gender_choices = (('M', 'MALE'),
+                      ('F', 'FEMALE'),)
     user = models.OneToOneField(CustomUser)
     academy = models.ForeignKey(Academy)
+    nick_name = models.CharField(max_length = 30)
+    passport = models.CharField(max_length = 50)
+    birthday = models.DateField()
+    gender = models.CharField(max_length = 1,
+                              choices = gender_choices,
+                              default = 'M')
