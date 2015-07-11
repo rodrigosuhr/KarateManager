@@ -7,9 +7,9 @@ class CustomUser(AbstractUser):
                     ('ACA', 'ACADEMY'),
                     ('FED', 'FEDERATION'),
                     ('CON', 'CONFEDERATION'),)
-    user_type = models.CharField(max_length = 3,
-                                 choices = type_choices,
-                                 default = 'MEM')
+    user_type = models.CharField(max_length=3,
+                                 choices=type_choices,
+                                 default='MEM')
 
 class Confederation(models.Model):
     user = models.OneToOneField(CustomUser)
@@ -27,9 +27,12 @@ class Member(models.Model):
                       ('F', 'FEMALE'),)
     user = models.OneToOneField(CustomUser)
     academy = models.ForeignKey(Academy)
-    nick_name = models.CharField(max_length = 30)
-    passport = models.CharField(max_length = 50)
+    nick_name = models.CharField(max_length=30)
+    passport = models.CharField(max_length=50)
     birthday = models.DateField()
-    gender = models.CharField(max_length = 1,
-                              choices = gender_choices,
-                              default = 'M')
+    gender = models.CharField(max_length=1,
+                              choices=gender_choices,
+                              default='M')
+    registration = models.CharField(max_length=30)
+    created = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
