@@ -13,18 +13,34 @@ class CustomUser(AbstractUser):
 
 class Confederation(models.Model):
     user = models.OneToOneField(CustomUser)
+    country = models.CharField(max_length=30)
 
 class Federation(models.Model):
     user = models.OneToOneField(CustomUser)
     confederation = models.ForeignKey(Confederation)
+    state = models.CharField(max_length=3)
+    individual_limit = models.IntegerField()
+    team_limit = models.IntegerField()
 
 class Academy(models.Model):
     user = models.OneToOneField(CustomUser)
     federation = models.ForeignKey(Federation)
+    individual_limit = models.IntegerField()
+    team_limit = models.IntegerField()
 
 class Member(models.Model):
     gender_choices = (('M', 'MALE'),
                       ('F', 'FEMALE'),)
+    role_choices = (('ATL', 'ATHLETE'),
+                    ('INS', 'INSTRUCTOR'),
+                    ('REF', 'REFEREE'),
+                    ('COA', 'COACH'),
+                    ('BOA', 'BOARD MEMBER'),
+                    ('DEL', 'DELEGATE'),
+                    ('JUD', 'JUDGE'),
+                    ('DIR', 'DIRECTOR'),)
+    status_choices = (('COM', 'COMPLIANT'),
+                      ('DEF', 'DEFAULTER'),)
     user = models.OneToOneField(CustomUser)
     academy = models.ForeignKey(Academy)
     nick_name = models.CharField(max_length=30)
@@ -36,3 +52,4 @@ class Member(models.Model):
     registration = models.CharField(max_length=30)
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+    role = models.CharField(max_length=3, choices=role_choices)
