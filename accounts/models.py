@@ -13,10 +13,12 @@ class CustomUser(AbstractUser):
 
 class Confederation(models.Model):
     user = models.OneToOneField(CustomUser)
+    country = models.CharField(max_length=30)
 
 class Federation(models.Model):
     user = models.OneToOneField(CustomUser)
     confederation = models.ForeignKey(Confederation)
+    state = models.CharField(max_length=3)
 
 class Academy(models.Model):
     user = models.OneToOneField(CustomUser)
@@ -25,6 +27,14 @@ class Academy(models.Model):
 class Member(models.Model):
     gender_choices = (('M', 'MALE'),
                       ('F', 'FEMALE'),)
+    role_choices = (('ATL', 'ATHLETE'),
+                    ('INS', 'INSTRUCTOR'),
+                    ('REF', 'REFEREE'),
+                    ('COA', 'COACH'),
+                    ('BOA', 'BOARD MEMBER'),
+                    ('DEL', 'DELEGATE'),
+                    ('JUD', 'JUDGE'),
+                    ('DIR', 'DIRECTOR'),)
     user = models.OneToOneField(CustomUser)
     academy = models.ForeignKey(Academy)
     nick_name = models.CharField(max_length = 30)
@@ -33,3 +43,4 @@ class Member(models.Model):
     gender = models.CharField(max_length = 1,
                               choices = gender_choices,
                               default = 'M')
+    role = models.CharField(max_length)

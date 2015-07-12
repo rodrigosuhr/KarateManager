@@ -1,1 +1,2 @@
 Django==1.8
+pyboleto==0.2.14
